@@ -80,7 +80,7 @@ public class MonoOne<T> implements One<T> {
 
     @Override
     public One<T> onComplete(Runnable runnable) {
-        return new MonoOne(value.doOnSuccess(response -> runnable.run()));
+        return new MonoOne(value.doOnTerminate(runnable));
     }
 
     private <R> Mono<R> oneToMono(One<R> one) {

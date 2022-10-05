@@ -49,7 +49,7 @@ class MonoOne<T : Any>(private val value: Mono<T>) : Mono<T>(), One<T> {
     }
 
     override fun onComplete(block: () -> Unit): One<T> {
-        return value.doOnSuccess { block() }.let(::MonoOne)
+        return value.doOnTerminate(block).let(::MonoOne)
     }
 
     override fun onSuccess(block: (T) -> Unit): One<T> {
